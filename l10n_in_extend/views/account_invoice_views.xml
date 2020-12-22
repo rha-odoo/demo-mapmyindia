@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_invoice_tax_tree" model="ir.ui.view">
+        <field name="name">account.invoice.tax.tree.inherit.l10n.in</field>
+        <field name="model">account.invoice.tax</field>
+        <field name="inherit_id" ref="account.view_invoice_tax_tree"/>
+        <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+                <field name="l10n_in_invoice_line_id" invisible="1"/>
+                <field name="l10n_in_invoice_line_ref" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form.inherit.l10n.in</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="date_invoice" position="after">
+                <field name="tax_amount_by_lines" invisible="1"/>
+                <field name="l10n_in_import_export" invisible="1"/>
+            </field>
+            <field name="invoice_line_ids" position="inside">
+                <field name="tax_amount_by_tax_group" invisible="1"/>
+            </field>
+            <xpath expr="//page[@name='other_info']/group[last()]/group[last()]" position="after">
+                <group string="Import/Export India" attrs="{'invisible': ['|', ('l10n_in_import_export', '!=', True), ('type', 'not in', ('out_invoice', 'out_refund'))]}">
+                    <field name="l10n_in_export_type"/>
+                    <field name="l10n_in_shipping_bill_number"/>
+                    <field name="l10n_in_shipping_bill_date"/>
+                    <field name="l10n_in_shipping_port_code"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+ </odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form.inherit.l10n.in</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                <field name="l10n_in_transaction_id" readonly="1"/>
+                <field name="l10n_in_transaction_status" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_invoice_draft']" position="before">
+                <button name="button_l10n_in_submit_einvoice" string="Submit E-Invoice"
+                    type="object" groups="account.group_account_invoice"
+                    attrs="{'invisible': ['|','|', ('type', 'not in', ('out_invoice','out_refund')), ('state', 'not in', ('open','in_payment','paid')), ('l10n_in_transaction_id','!=',False)]}"/>
+                <button name="button_l10n_in_cancel_einvoice" string="Cancel E-Invoice"
+                    type="object" groups="account.group_account_invoice"
+                    attrs="{'invisible': ['|','|', ('type', 'not in', ('out_invoice','out_refund')), ('state', '!=', 'cancel'), ('l10n_in_transaction_status','!=', 'submitted')]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="l10n_in_einvoice_transaction_form" model="ir.ui.view">
+        <field name="name">l10n.in.einvoice.transaction.form</field>
+        <field name="model">l10n.in.einvoice.transaction</field>
+        <field name="arch" type="xml">
+            <form string="eInvoice Transaction">
+                <header>
+                    <button name="preview_qrcode" class="btn-primary" type="object" string="View Signed QR"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="invoice_id"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="irn"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="generation_datatime"/>
+                            <field name="cancellation_datatime" attrs="{'invisible': [('status','!=','cancel')]}"/>
+                        </group>
+                        <group>
+                            <field name="ack_no"/>
+                            <field name="cancel_reason" attrs="{'invisible': [('status','!=','cancel')]}"/>
+                            <field name="cancel_remarks" attrs="{'invisible': [('status','!=','cancel')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="response_json" groups="base.group_no_one"/>
+                        <field name="cancel_response_json" groups="base.group_no_one" attrs="{'invisible': [('status','!=','cancel')]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+ </odoo>

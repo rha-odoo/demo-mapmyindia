@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_in.cess_sale_1591" model="account.tax.template">
+        <field name="tax_group_id" ref="cess_non_advol_group"/>
+    </record>
+    <record id="l10n_in.cess_21_4170_higer_sale" model="account.tax.template">
+        <field name="tax_group_id" ref="cess_non_advol_group"/>
+    </record>
+    <record id="l10n_in.cess_purchase_1591" model="account.tax.template">
+        <field name="tax_group_id" ref="cess_non_advol_group"/>
+    </record>
+    <record id="l10n_in.cess_21_4170_higer_purchase" model="account.tax.template">
+        <field name="tax_group_id" ref="cess_non_advol_group"/>
+    </record>
+</odoo>

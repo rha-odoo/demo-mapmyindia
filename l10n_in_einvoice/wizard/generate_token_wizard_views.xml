@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_in_einvoice_generate_token_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.in.einvoice.service.setup.wizard.form</field>
+        <field name="model">l10n.in.einvoice.service.setup.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Process E-invoice">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id" required="1" context="{'show_vat':True}" options='{"no_create": True,"always_reload": True}'/>
+                            <field name="gstn_username" required="1"/>
+                            <field name="gstn_password" required="1" password="True"/>
+                            <field name="save_password"/>
+                        </group>
+                    </group>
+                <footer>
+                    <button string='Process' name="register_service" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="l10n_in_einvoice_generate_token_wizard_action" model="ir.actions.act_window">
+        <field name="name">Login to eInvoice Portal</field>
+        <field name="res_model">l10n.in.einvoice.service.setup.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="l10n_in_einvoice_generate_token_wizard_form"/>
+        <field name="target">new</field>
+        <field name="context" eval="{}"/>
+    </record>
+</odoo>

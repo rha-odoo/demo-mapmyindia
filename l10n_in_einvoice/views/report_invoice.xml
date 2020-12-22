@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="l10n_in_einvoice_report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//address[@t-field='o.partner_id']" position="before">
+            <t t-if="o.l10n_in_transaction_id.qr_code_data">
+                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' %
+                ('QR', o.l10n_in_transaction_id.qr_code_data, 200, 200)"/>
+            </t>
+        </xpath>
+        <xpath expr="//h2" position="after">
+            <div id="l10n_in_einvoice_informations" class="row mt32 mb32">
+                <div class="col-auto col-3 mw-100 mb-2" t-if="o.l10n_in_transaction_id.irn" name="irn">
+                    <strong>IRN:</strong>
+                    <p class="m-0" t-field="o.l10n_in_transaction_id.irn"/>
+                </div>
+            </div>
+            <div id="l10n_in_einvoice_informations2" class="row mt32 mb32">
+                <div class="col-auto col-3 mw-100 mb-2" t-if="o.l10n_in_transaction_id.ack_no" name="ack_no">
+                    <strong>Ack. No:</strong>
+                    <p class="m-0" t-field="o.l10n_in_transaction_id.ack_no"/>
+                </div>
+                <div class="col-auto col-3 mw-100 mb-2" t-if="o.l10n_in_transaction_id.ack_date" name="ack_date">
+                    <strong>Ack. Date:</strong>
+                    <p class="m-0" t-field="o.l10n_in_transaction_id.ack_date"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
